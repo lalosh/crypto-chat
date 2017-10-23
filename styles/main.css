@@ -1,0 +1,158 @@
+body{
+	min-width: 430px;
+}
+
+nav{
+	display: block;
+	width: 100%;
+	background-color: crimson;
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+a{
+	color: white;
+	text-decoration: none;
+}
+
+section{
+	display: block;
+	background-color: springgreen;
+	margin-bottom: 5px;
+	text-align: center;
+	font-size: 30px;
+	padding: 3px;
+}
+
+section input{
+	vertical-align: middle;
+	padding: 3px;
+	font-size: 17px;
+	width: 30%;
+}
+section label{
+	color: dimgray;
+}
+section button{
+	padding: 4px;
+	font-size: 17px;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: crimson;
+	color: honeydew;
+	font-weight: bold;
+}
+
+aside{
+	width: 28%;
+	display: inline-block;
+	padding: 0.5%;
+	vertical-align: top;
+	margin-bottom: 10px;
+}
+
+main{
+	display: inline-block;
+	width: 70%;
+	padding: 0.5%;
+	vertical-align: top;
+	background-color: dimgray;
+	height: 500px;
+}
+
+.online-people{
+	/*background-color: cornsilk;*/
+	background-color: lightgray;
+
+}
+
+.info{
+	background-color: lightgray;
+	/*background-color: teal;*/
+	margin-bottom: 5px;
+}
+
+.chat-box{
+	background-color: cornsilk;
+	padding: 1%;
+	margin-bottom: 10px;
+	display: inline-block;
+	width: 49.5%;
+	vertical-align: top;
+	overflow: auto;
+	height: 450px;
+	color: honeydew;
+}
+
+.write-area{
+	background-color: dimgray;
+	display: inline-block;
+	width: 49.5%;
+}
+
+.write-area textarea{
+	overflow: auto;
+	width: 77%;
+	padding: 3px;
+	vertical-align: middle;
+	margin-left: 1px;
+}
+
+.write-area button{
+	width: 20%;
+	padding: 5px;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: crimson;
+	color: white;
+	font-weight: 900;
+}
+
+.in,
+.out{
+	display: inline;
+	clear: both;
+	margin: 1% 0;
+	padding: 1%;
+}
+
+.in{
+	float: left;
+	background-color: crimson;
+}
+
+.out{
+	float: right;
+	background-color: goldenrod;
+}
+
+@media only screen and (max-width: 585px){
+	
+	aside{
+		display: block;
+		width: 100%;
+	}
+	
+	main{
+		display: block;
+		width: 100%;
+	}
+}
+
+button,
+textarea,
+.chat-box,
+main,
+aside,
+.info,
+.online-people,
+input,
+.write-area,
+.in,
+.out,
+.nav,
+section
+{
+	border: none;
+	border-radius: 3px;
+}
