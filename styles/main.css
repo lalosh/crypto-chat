@@ -2,12 +2,15 @@ body{
 	min-width: 430px;
 }
 
-nav{
+header{
 	display: block;
 	width: 100%;
 	background-color: crimson;
 	padding: 10px;
 	margin-bottom: 5px;
+	text-align: center;
+	color: ivory;
+	font-size: 30px;
 }
 
 a{
@@ -26,13 +29,30 @@ section{
 
 section input{
 	vertical-align: middle;
-	padding: 3px;
+	padding: 5px;
 	font-size: 17px;
 	width: 30%;
+	font-size: 17px;
+	letter-spacing: 1.5px;
 }
 section label{
 	color: dimgray;
 }
+
+.one-info{
+	margin: 15px 0;
+	text-align: center;
+}
+.one-info h1{
+	border: 2px solid black;
+	display: inline-block;
+	padding: 3px;
+	margin: 1px 0;
+	border-radius: 2px;
+	border-color: crimson;
+	background-color: goldenrod;
+}
+
 section button{
 	padding: 4px;
 	font-size: 17px;
@@ -60,18 +80,34 @@ main{
 	height: 500px;
 }
 
-.online-people{
-	/*background-color: cornsilk;*/
-	background-color: lightgray;
+.header-text{
+	color: crimson;
+	line-height: 1.5em;
+}
 
+.online-people{
+	font-size: 20px;
+	background-color: lightgray;
+	text-align: center;
+	padding: 5px;
 }
 
 .info{
+	padding: 5px;
 	background-color: lightgray;
-	/*background-color: teal;*/
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 20px;
 }
-
+.selected{
+	background-color: crimson;
+}
+.person{
+	margin: 5px;
+	border: 1px solid dimgray;
+	padding: 4px;
+	border-radius: 3px;
+}
 .chat-box{
 	background-color: cornsilk;
 	padding: 1%;
@@ -90,12 +126,14 @@ main{
 	width: 49.5%;
 }
 
-.write-area textarea{
-	overflow: auto;
+.write-area input{
 	width: 77%;
 	padding: 3px;
 	vertical-align: middle;
 	margin-left: 1px;
+	font-size: 17px;
+	letter-spacing: 1.5px;
+
 }
 
 .write-area button{
@@ -140,7 +178,7 @@ main{
 }
 
 button,
-textarea,
+input,
 .chat-box,
 main,
 aside,
@@ -150,9 +188,19 @@ input,
 .write-area,
 .in,
 .out,
-.nav,
+.header,
 section
 {
 	border: none;
 	border-radius: 3px;
+}
+
+input:hover{
+	background-color: crimson;
+	color: white;
+}
+
+.person:hover{
+	background-color: lightgreen;
+	cursor: pointer;
 }

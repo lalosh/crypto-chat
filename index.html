@@ -3,28 +3,29 @@
 <head>
 	<!-- <meta http-equiv="refresh" content="1"> -->
 	<title>crypto-chat</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./styles/reset.css">	
 	<link rel="stylesheet" type="text/css" href="./styles/main.css">
 </head>
 <body>
 
-	<nav>
-		<ul>
-			<li><a href="#">HOME</a></li>
-		</ul>
-	</nav>
+	<header>
+		Cryptographic Chat App
+	</header>
 
 	<section class="login">
-		<label for="username">Login as:</label>
-		<input type="text" name="username">
-		<button>log in</button>
+		<form>
+			<label for="username">Login as:</label>
+			<input type="text" name="username">
+			<button type="submit">GO!</button>
+		</form>
 	</section>
 
 	<aside>
 
 		<div class="info">
 
-			<h1 class="header-text">Cryptographic Chat Web App</h1>
+			<h1 class="header-text">Crypto Info</h1>
 			
 			<div class="one-info">
 				<h2>Crypto method:</h2>
@@ -47,6 +48,18 @@
 
 			<div class="person">
 				<h1 class="name"> Jack boo</h1>
+			</div>
+
+			<div class="person selected">
+				<h1 class="name"> Hooky ya</h1>
+			</div>
+
+			<div class="person">
+				<h1 class="name"> Kiri man</h1>
+			</div>
+			
+			<div class="person">
+				<h1 class="name"> christo dem</h1>
 			</div>
 
 		</div>
@@ -80,12 +93,12 @@
 
 
 
-		<div class="write-area">
-			
-			<textarea rows="1"></textarea>
-			<button>send</button>
-			
-		</div>
+		<form class="write-area">
+
+			<input type="text" name="text-input">
+			<button type="submit">send</button>
+
+		</form>
 
 	</main>
 
