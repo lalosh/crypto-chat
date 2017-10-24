@@ -204,3 +204,7 @@ input:hover{
 	background-color: lightgreen;
 	cursor: pointer;
 }
+
+.selected:hover{
+	background-color: crimson;
+}

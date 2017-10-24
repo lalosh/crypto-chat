@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- <meta http-equiv="refresh" content="1"> -->
+	<!-- <meta http-equiv="refresh" content="2"> -->
 	<title>crypto-chat</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./styles/reset.css">	
@@ -14,11 +14,9 @@
 	</header>
 
 	<section class="login">
-		<form>
 			<label for="username">Login as:</label>
 			<input type="text" name="username">
 			<button type="submit">GO!</button>
-		</form>
 	</section>
 
 	<aside>
@@ -70,7 +68,7 @@
 
 		<div class="chat-box">
 
-			<div class="read-area">
+			<div class="read-area decrypted">
 			
 				<p class="msg in">hello Jack</p>
 				<p class="msg out">oh! hi,How are you?</p>
@@ -82,7 +80,7 @@
 
 		<div class="chat-box">
 			
-			<div class="read-area">
+			<div class="read-area encrypted">
 				
 				<p class="msg in">aljd8qu8dqjjq</p>
 				<p class="msg out">lij130r1rjf982j</p>
@@ -93,13 +91,15 @@
 
 
 
-		<form class="write-area">
+		<div class="write-area">
 
 			<input type="text" name="text-input">
 			<button type="submit">send</button>
 
-		</form>
+		</div>
 
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="./scripts/main.js"></script>
 	</main>
 
 
