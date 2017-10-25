@@ -1,8 +1,13 @@
 $('document').ready(function(){
 
 let cryptoApp = {
+	
 	cacheDOM: function cacheDOM(){
 		
+		this.$keyInfo = $('.key-info');
+		this.$secretKey = $('.key-info h1').get(0);
+		this.$editKeyButton = $('.key-info button');
+
 		this.$decrypted = $('.decrypted'),
 		this.$encrypted = $('.encrypted'),
 
@@ -24,32 +29,84 @@ let cryptoApp = {
 
 		this.$chatWith,
 		this.userName;
+
+
 	},
+
+	bindEditKey: function(){
+
+		this.$editKeyButton.click(function cool(){
+
+
+			$(this).remove();
+
+			cryptoApp.$keyInfo.append('<input type="text" placeholder="type here"></input>')
+			cryptoApp.$keyInfo.append('<button>Save</button>')
+
+			$('.key-info input').focus();
+
+
+			$('.key-info button').click(function(){
+
+				if(!($('.key-info input').val() == ''))
+					cryptoApp.$secretKey.innerText = $('.key-info input').val();
+
+				$(this).remove();
+				$('.key-info input').remove();
+
+				cryptoApp.$keyInfo.append('<button>Edit</button>');
+				cryptoApp.$editKeyButton = $('.key-info button');
+				cryptoApp.bindEditKey();
+			})
+
+			$('.key-info input').keyup(function(event){
+
+				if(event.keyCode == 13){
+				
+					if(!($('.key-info input').val() == ''))
+						cryptoApp.$secretKey.innerText = $('.key-info input').val();
+
+					$('.key-info button').remove();
+					$(this).remove();
+					
+					cryptoApp.$keyInfo.append('<button>Edit</button>');
+					cryptoApp.$editKeyButton = $('.key-info button');
+					cryptoApp.bindEditKey();
+				}
+			})
+			
+		});
+	},
+
+
 	bindButtons: function(){
 
-		this.$persons.click(function(){
+		this.$persons.click((function(){
 			
-			$selected.removeClass('selected');
+			cryptoApp.$selected.removeClass('selected');
 			$(this).addClass('selected');
-			$selected = $(this);
-			$chatWith = $(this).find('h1').get(0).innerText;
-		});
+			cryptoApp.$selected = $(this);
+			cryptoApp.$chatWith = $(this).find('h1').get(0).innerText;
+		}));
 
 
-		this.$loginButton.click(function(){
+		this.$loginButton.click((function(){
+				
+				cryptoApp.onlyOnce = false;
+				cryptoApp.userName = cryptoApp.$loginInput.val();
+				cryptoApp.$loginInput.val("");
 
-			userName = $loginInput.val();
-			$loginInput.val("");
+
+				cryptoApp.$loginButton.remove();
+				cryptoApp.$loginInput.remove();
+				cryptoApp.$loginLabel.remove();
+
+				cryptoApp.$loginForm.append('<h1 class="header-text"> Hello, '+cryptoApp.userName+'</h1>');
+
+		}));
 
 
-			this.$loginButton.remove();
-			this.$loginInput.remove();
-			this.$loginLabel.remove();
-
-			$('.login').append('<h1 class="header-text"> Hello, '+this.userName+'</h1>')
-		});
-
-		this.$loginInput.keyup(function(event){
+		this.$loginInput.keyup((function(event){
 
 			if(event.keyCode == 13){
 
@@ -62,184 +119,71 @@ let cryptoApp = {
 				
 				this.$loginForm.append('<h1 class="header-text"> Hello, '+this.userName+'</h1>')
 			}
-		}).bind(this);
+		}).bind(this));
 
 
-		this.$userMsg.keyup(function(event){
+		this.$userMsg.keyup((function(event){
+			
+			let a = document.querySelectorAll('.chat-box')[0];
+			let b = document.querySelectorAll('.chat-box')[0];
+			a.scrollTop = a.scrollHeight;
+			b.scrollTop = b.scrollHeight;
+
 
 			if(event.keyCode == 13){
 
 				this.$sendButton.click();
 				this.$userMsg.val("");
 			}
-		});
 
-		this.$sendButton.click(function(){
+		}).bind(this));
 
-			this.addDecryptedMsg("out",this.$userMsg.val());
+		this.$sendButton.click((function(){
+
+
+			let a = document.querySelectorAll('.chat-box')[0];
+			let b = document.querySelectorAll('.chat-box')[0];
+			a.scrollTop = a.scrollHeight;
+			b.scrollTop = b.scrollHeight;
+
+			this.addDecryptedMsg("in",this.$userMsg.val().trim());
 			this.$userMsg.val("");
-		});
+		
+		}).bind(this));
 
 	},
 
 	//state : in or out
 	addDecryptedMsg: function addDecryptedMsg(state, msg){
 
-		$decrypted.append('<p class="msg '+state+'">'+msg+'</p>');
+		this.$decrypted.append('<p class="msg '+state+'">'+msg+'</p>');
 	},
 
 	//state : in or out
 	addEncryptedMsg: function addEncryptedMsg(state, msg){
 
-		$encrypted.append('<p class="msg '+state+'">'+msg+'</p>');
+		this.$encrypted.append('<p class="msg '+state+'">'+msg+'</p>');
 	},
 
 	changeCryptoMethod: function changeCryptoMethod(newMethod){
-		$cryptoMethod.innerText = newMethod;
+		this.$cryptoMethod.innerText = newMethod;
 	},
 
 	changeAlgoUsed: function changeAlgoUsed(newAlgo){
-		$algoUsed.innerText = newAlgo;
+		this.$algoUsed.innerText = newAlgo;
 	},
 
 	changeKeySize: function changeKeySize(newSize){
-		$keySize.innerText = newSize;
+		this.$keySize.innerText = newSize;
 	},
 
 	run: function(){
 		this.cacheDOM();
 		this.bindButtons();
+		this.bindEditKey();
 	},
 };
 
 cryptoApp.run();
-	
-	/*
-let $decrypted, 
-	$encrypted, 
-
-	$loginForm, 
-	$loginInput, 
-	$loginButton, 
-	$loginLabel, 
-
-	$infoArray, 
-	$cryptoMethod, 
-	$algoUsed, 
-	$keySize, 
-
-	$userMsg, 
-	$sendButton, 
-
-	$selected, 
-	$persons,
-
-	$chatWith,
-	userName;
-
-function cacheDOM(){
-	$decrypted = $('.decrypted'),
-	$encrypted = $('.encrypted'),
-
-	$loginForm = $('.login'),
-	$loginInput = $loginForm.find('input'),
-	$loginButton = $loginForm.find('button'),
-	$loginLabel = $loginForm.find('label'),
-
-	$infoArray = $('.one-info').find('h1'),
-	$cryptoMethod = $infoArray.get(0),
-	$algoUsed = $infoArray.get(1),
-	$keySize = $infoArray.get(2),
-
-	$userMsg = $('.write-area > input'),
-	$sendButton = $('.write-area > button'),
-
-	$selected = $('.selected'),
-	$persons = $('.person'),
-
-	$chatWith,
-	userName;
-}
-
-cacheDOM();
-
-$persons.click(function(){
-	
-	$selected.removeClass('selected');
-	$(this).addClass('selected');
-	$selected = $(this);
-	$chatWith = $(this).find('h1').get(0).innerText;
-})
-
-
-$loginButton.click(function(){
-
-	userName = $loginInput.val();
-	$loginInput.val("");
-
-	$loginButton.remove();
-	$loginInput.remove();
-	$loginLabel.remove();
-
-	$('.login').append('<h1 class="header-text"> Hello, '+userName+'</h1>')
-})
-
-$loginInput.keyup(function(event){
-
-	if(event.keyCode == 13){
-
-		userName = $loginInput.val();
-		$loginInput.val("");
-
-		$loginButton.remove();
-		$loginInput.remove();
-		$loginLabel.remove();
-		
-		$loginForm.append('<h1 class="header-text"> Hello, '+userName+'</h1>')
-	}
-})
-
-
-$userMsg.keyup(function(event){
-
-	if(event.keyCode == 13){
-
-		$sendButton.click();
-		$userMsg.val("");
-	}
-})
-
-$sendButton.click(function(){
-
-	addDecryptedMsg("out",$userMsg.val());
-	$userMsg.val("");
-})
-
-
-//state : in or out
-function addDecryptedMsg(state, msg){
-
-	$decrypted.append('<p class="msg '+state+'">'+msg+'</p>');
-}
-
-//state : in or out
-function addEncryptedMsg(state, msg){
-
-	$encrypted.append('<p class="msg '+state+'">'+msg+'</p>');
-}
-
-function changeCryptoMethod(newMethod){
-	$cryptoMethod.innerText = newMethod;
-}
-
-function changeAlgoUsed(newAlgo){
-	$algoUsed.innerText = newAlgo;
-}
-
-function changeKeySize(newSize){
-	$keySize.innerText = newSize;
-}
-
-*/
 
 })

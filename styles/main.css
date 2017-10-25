@@ -189,7 +189,9 @@ input,
 .in,
 .out,
 .header,
-section
+section,
+.key-info,
+.key-info input
 {
 	border: none;
 	border-radius: 3px;
@@ -207,4 +209,33 @@ input:hover{
 
 .selected:hover{
 	background-color: crimson;
+}
+
+.key-info{
+	display: block;
+	background-color: springgreen;
+	text-align: center;
+	font-size: 18px;
+	padding: 10px;
+	margin-bottom: 10px;
+	line-height: 1.5em;
+}
+
+.key-info button{
+	display: block;
+	margin: auto;
+	padding: 5px;
+	font-size: 17px;
+	font-weight: bold;
+	background-color: crimson;
+	color: white;
+	cursor: pointer;
+}
+
+.key-info input{
+	padding: 5px;
+	font-size: 17px;
+	font-weight: bold;
+	margin: 3px 0;
+	width: 90%;
 }
