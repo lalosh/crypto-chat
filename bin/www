@@ -21,6 +21,28 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+/*io*/
+var io = require('socket.io')(server);
+io.on('connection',function(socket){
+
+  console.log('new user connected!');
+
+
+  socket.on('newMsg',function(msg, senderName){
+      console.log(msg,senderName);
+      socket.broadcast.emit('recNewMsg',msg,senderName);
+  })
+  
+
+  socket.on('disconnect',function(){console.log('a user disconnected')});
+
+
+});
+  
+
+/*io*/
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -88,3 +110,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+

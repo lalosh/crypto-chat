@@ -9,8 +9,8 @@ var sassMiddleware = require('node-sass-middleware');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var server = require('./routes/server');
-
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

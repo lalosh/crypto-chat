@@ -1,5 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+
 const crypto = require('crypto');
+let socket = io();
+
 
 $('document').ready(function(){
 
@@ -106,6 +110,8 @@ let cryptoApp = {
 
 				cryptoApp.$loginForm.append('<h1 class="header-text"> Hello, '+cryptoApp.userName+'</h1>');
 
+				socket.emit('newMsg', "7be933c9082f5bf07bb86264c3ffc7d5", cryptoApp.userName);
+				
 		}));
 
 
@@ -157,8 +163,15 @@ let cryptoApp = {
 			this.addEncryptedMsg("out",encryptedText);
 			this.$userMsgInput.val("");
 
-			//send enctyptedText via socketio
-		
+			//send encryptedText via socketio
+			socket.on('recNewMsg',function(msg, senderName){
+				cryptoApp.addEncryptedMsg("in",msg);
+				console.log(msg, senderName);
+			});
+	
+			socket.emit('newMsg', encryptedText, cryptoApp.userName);
+			
+
 		}).bind(this));
 
 	},
@@ -166,15 +179,25 @@ let cryptoApp = {
 	//state : in or out
 	addDecryptedMsg: function addDecryptedMsg(state, msg){
 
+
+		let allP = $('.decrypted p');
+		let lastP = allP.get(allP.length-1).innerText;
+		if(lastP == msg) return;
+
 		this.$decrypted.append('<p class="msg '+state+'">'+msg+'</p>');
 	},
 
 	//state : in or out
 	addEncryptedMsg: function addEncryptedMsg(state, msg){
+
+		let allP = $('.encrypted p');
+		let lastP = allP.get(allP.length-1).innerText;
+		if(lastP == msg) return;
+
+
 		if(state == "in"){
 			let cryptoInstance = new cryptoAES();
 			cryptoInstance.changePassword(this.$secretKey.innerText);
-			console.log(this.$secretKey.innerText);
 			let decryptedText = cryptoInstance.decrypt(msg);
 			this.addDecryptedMsg("in",decryptedText);
 		}
@@ -193,15 +216,36 @@ let cryptoApp = {
 		this.$keySize.innerText = newSize;
 	},
 
+	addPerson: function addPerson(name){
+		
+		$('.online-people').append('<div class="person"><h1 class="name">'+name+'</h1></div>');
+			
+		let a = $($('.person').last()[0]);
+
+		a.click((function(){
+			
+			cryptoApp.$selected.removeClass('selected');
+			$(this).addClass('selected');
+			cryptoApp.$selected = $(this);
+			cryptoApp.$chatWith = $(this).find('h1').get(0).innerText;
+		}));
+
+
+	},
+
 	run: function(){
 		this.cacheDOM();
 		this.bindButtons();
 		this.bindEditKey();
+		
 	},
 };
 
 cryptoApp.run();
-cryptoApp.addEncryptedMsg("in","dd802f51fa1691872458e995da6e5c60")
+
+//recieve encrypted msg from socketio
+//where ever you want you can recieve
+// cryptoApp.addEncryptedMsg("in","dd802f51fa1691872458e995da6e5c60")
 });
 
 function cryptoAES(){
@@ -245,6 +289,7 @@ function cryptoAES(){
 
 	return publicAPI;
 }
+
 
 },{"crypto":57}],2:[function(require,module,exports){
 var asn1 = exports;
