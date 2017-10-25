@@ -14,7 +14,11 @@ How to run?
 
 > npm start
 
+
+
 this is an example of two users chatting
 <img src="screenshot1.png">
+
+
 this is the server page where you can only read encrypted messages
 <img src="screenshot2.png">
