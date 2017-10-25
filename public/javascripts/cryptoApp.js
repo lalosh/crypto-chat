@@ -36,13 +36,11 @@ let cryptoApp = {
 		this.$chatWith,
 		this.userName;
 
-
 	},
 
 	bindEditKey: function(){
 
 		this.$editKeyButton.click(function cool(){
-
 
 			$(this).remove();
 
@@ -63,7 +61,7 @@ let cryptoApp = {
 				cryptoApp.$keyInfo.append('<button>Edit</button>');
 				cryptoApp.$editKeyButton = $('.key-info button');
 				cryptoApp.bindEditKey();
-			})
+			});
 
 			$('.key-info input').keyup(function(event){
 
@@ -109,7 +107,6 @@ let cryptoApp = {
 
 				cryptoApp.$loginForm.append('<h1 class="header-text"> Hello, '+cryptoApp.userName+'</h1>');
 				this.addPerson(this.userName);
-				// socket.emit('newMsg', "7be933c9082f5bf07bb86264c3ffc7d5", cryptoApp.userName);
 				socket.emit('newUser', this.userName);
 		}));
 
@@ -149,8 +146,8 @@ let cryptoApp = {
 
 		}).bind(this));
 
-		this.$sendButton.click((function(){
 
+		this.$sendButton.click((function(){
 
 			let a = document.querySelectorAll('.chat-box')[0];
 			let b = document.querySelectorAll('.chat-box')[1];
@@ -222,11 +219,9 @@ let cryptoApp = {
 		
 		let userNameArray = $('.name');
 		for (let i = 0; i < userNameArray.length; i++) {
-			// console.log(userNameArray[i].innerText);
 			if(userNameArray[i].innerText == name)
 				return;
 		}
-		// if($('.name').last()[0].innerText == name) return;
 		$('.online-people').append('<div class="person"><h1 class="name">'+name+'</h1></div>');
 			
 		let a = $($('.person').last()[0]);
@@ -248,33 +243,30 @@ let cryptoApp = {
 		this.bindEditKey();
 			
 
-			// socket.on('sayhi',function(msg, senderName){
-			// 	cryptoApp.addEncryptedMsg("in",msg);
-			// 	console.log(msg, senderName);
-			// 	socket.emit("sayhi","oh hi!","client")
-			// });
-
-			socket.on('requestUserList',function(userNameArray){
-				// console.log(userName);
-				userNameArray.map(function(userName){
-					cryptoApp.addPerson(userName);
-					console.log(userName);				
-				})
-			});
-
-			socket.on('newUserAdded',function(name){
-				cryptoApp.addPerson(name);
+		socket.on('requestUserList',function(userNameArray){
+			// console.log(userName);
+			userNameArray.map(function(userName){
+				cryptoApp.addPerson(userName);
+				console.log(userName);				
 			})
+		});
+
+		socket.on('newUserAdded',function(name){
+			cryptoApp.addPerson(name);
+		})
 	},
 };
 
 cryptoApp.run();
 
-//recieve encrypted msg from socketio
-//where ever you want you can recieve
-// cryptoApp.addEncryptedMsg("in","dd802f51fa1691872458e995da6e5c60")
+
 });
 
+
+
+
+
+//cryptoAES module
 function cryptoAES(){
 
 	let password = "default password"; 
