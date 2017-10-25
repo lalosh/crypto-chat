@@ -125,7 +125,7 @@ let cryptoApp = {
 		this.$userMsg.keyup((function(event){
 			
 			let a = document.querySelectorAll('.chat-box')[0];
-			let b = document.querySelectorAll('.chat-box')[0];
+			let b = document.querySelectorAll('.chat-box')[1];
 			a.scrollTop = a.scrollHeight;
 			b.scrollTop = b.scrollHeight;
 
@@ -142,7 +142,7 @@ let cryptoApp = {
 
 
 			let a = document.querySelectorAll('.chat-box')[0];
-			let b = document.querySelectorAll('.chat-box')[0];
+			let b = document.querySelectorAll('.chat-box')[1];
 			a.scrollTop = a.scrollHeight;
 			b.scrollTop = b.scrollHeight;
 
