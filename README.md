@@ -9,4 +9,8 @@ cd crypto-app
 npm install
 browserify ./public/javascripts/_cryptoApp.js -o ./public/javascripts/cryptoApp.js
 npm start
-<img src="screenshot.png">
+
+this is an example of two users chatting
+<img src="screenshot1.png">
+this is the server page where you can only read encrypted messages
+<img src="screenshot2.png">
