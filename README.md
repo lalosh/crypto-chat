@@ -4,11 +4,11 @@ Cryptographic chat web app made for college @Damascus University-subject:Informa
 
 How to run?
 
-git clone https://github.com/lalosh/crypto-chat.git
-cd crypto-app
-npm install
-browserify ./public/javascripts/_cryptoApp.js -o ./public/javascripts/cryptoApp.js
-npm start
+> git clone https://github.com/lalosh/crypto-chat.git
+> cd crypto-app
+> npm install
+> browserify ./public/javascripts/_cryptoApp.js -o ./public/javascripts/cryptoApp.js
+> npm start
 
 this is an example of two users chatting
 <img src="screenshot1.png">
