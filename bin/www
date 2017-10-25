@@ -20,7 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
+let userNameArray = [];
 
 /*io*/
 var io = require('socket.io')(server);
@@ -28,10 +28,26 @@ io.on('connection',function(socket){
 
   console.log('new user connected!');
 
+  socket.emit('requestUserList',userNameArray);
+
+  // io.emit('sayhi',"7be933c9082f5bf07bb86264c3ffc7d5", "server");
+  // socket.on('sayhi',function(msg, senderName){
+  //   console.log(msg,senderName);
+  // })
+
+
+  socket.on('newUser',function(userName){
+
+    // console.log(userName);
+    userNameArray.push(userName);
+    socket.broadcast.emit('newUserAdded', userName)
+  })
 
   socket.on('newMsg',function(msg, senderName){
+
       console.log(msg,senderName);
-      socket.broadcast.emit('recNewMsg',msg,senderName);
+      io.emit('toServer',msg, senderName);
+      socket.broadcast.emit('recNewMsg',msg, senderName);
   })
   
 

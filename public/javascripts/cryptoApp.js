@@ -4,7 +4,6 @@
 const crypto = require('crypto');
 let socket = io();
 
-
 $('document').ready(function(){
 
 let cryptoApp = {
@@ -109,9 +108,9 @@ let cryptoApp = {
 				cryptoApp.$loginLabel.remove();
 
 				cryptoApp.$loginForm.append('<h1 class="header-text"> Hello, '+cryptoApp.userName+'</h1>');
-
-				socket.emit('newMsg', "7be933c9082f5bf07bb86264c3ffc7d5", cryptoApp.userName);
-				
+				this.addPerson(this.userName);
+				// socket.emit('newMsg', "7be933c9082f5bf07bb86264c3ffc7d5", cryptoApp.userName);
+				socket.emit('newUser', this.userName);
 		}));
 
 
@@ -127,6 +126,9 @@ let cryptoApp = {
 				this.$loginLabel.remove();
 				
 				this.$loginForm.append('<h1 class="header-text"> Hello, '+this.userName+'</h1>')
+				this.addPerson(this.userName);
+				socket.emit('newUser', this.userName);
+
 			}
 		}).bind(this));
 
@@ -165,7 +167,7 @@ let cryptoApp = {
 
 			//send encryptedText via socketio
 			socket.on('recNewMsg',function(msg, senderName){
-				cryptoApp.addEncryptedMsg("in",msg);
+				cryptoApp.addEncryptedMsg("in",msg,senderName);
 				console.log(msg, senderName);
 			});
 	
@@ -188,7 +190,7 @@ let cryptoApp = {
 	},
 
 	//state : in or out
-	addEncryptedMsg: function addEncryptedMsg(state, msg){
+	addEncryptedMsg: function addEncryptedMsg(state, msg, senderName){
 
 		let allP = $('.encrypted p');
 		let lastP = allP.get(allP.length-1).innerText;
@@ -199,7 +201,7 @@ let cryptoApp = {
 			let cryptoInstance = new cryptoAES();
 			cryptoInstance.changePassword(this.$secretKey.innerText);
 			let decryptedText = cryptoInstance.decrypt(msg);
-			this.addDecryptedMsg("in",decryptedText);
+			this.addDecryptedMsg("in", senderName + " : "+ decryptedText);
 		}
 		this.$encrypted.append('<p class="msg '+state+'">'+msg+'</p>');
 	},
@@ -218,6 +220,13 @@ let cryptoApp = {
 
 	addPerson: function addPerson(name){
 		
+		let userNameArray = $('.name');
+		for (let i = 0; i < userNameArray.length; i++) {
+			// console.log(userNameArray[i].innerText);
+			if(userNameArray[i].innerText == name)
+				return;
+		}
+		// if($('.name').last()[0].innerText == name) return;
 		$('.online-people').append('<div class="person"><h1 class="name">'+name+'</h1></div>');
 			
 		let a = $($('.person').last()[0]);
@@ -237,7 +246,25 @@ let cryptoApp = {
 		this.cacheDOM();
 		this.bindButtons();
 		this.bindEditKey();
-		
+			
+
+			// socket.on('sayhi',function(msg, senderName){
+			// 	cryptoApp.addEncryptedMsg("in",msg);
+			// 	console.log(msg, senderName);
+			// 	socket.emit("sayhi","oh hi!","client")
+			// });
+
+			socket.on('requestUserList',function(userNameArray){
+				// console.log(userName);
+				userNameArray.map(function(userName){
+					cryptoApp.addPerson(userName);
+					console.log(userName);				
+				})
+			});
+
+			socket.on('newUserAdded',function(name){
+				cryptoApp.addPerson(name);
+			})
 	},
 };
 
