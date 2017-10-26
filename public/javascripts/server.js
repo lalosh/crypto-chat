@@ -22,4 +22,20 @@ socket.on('toServer',function(msg, senderName){
 })
 
 
+
+var enc = new TextDecoder();
+
+
+socket.on('recvFilesServer',function(filesArray){
+	
+  for (let i = 0; i < filesArray.length; i++) {
+  
+    let arr = new Uint8Array(filesArray[i]);
+    console.log(enc.decode(arr));
+    let msg = enc.decode(arr);
+	addEncryptedMsg('in', msg);
+	scrolling.scrollTop = scrolling.scrollHeight;
+  }
+
+})
 })

@@ -83,19 +83,19 @@
 			<input type="text" name="text-input">
 			<button type="submit">send</button>
 			
-		<!-- 
-	    <form ref='uploadForm' 
-	      id='uploadForm' 
-	      action='http://localhost:3000/upload' 
-	      method='post' 
-	      encType="multipart/form-data">
-	                <input type="file" name="sampleFile" />
-			        <input type='submit' value='Upload!' />	
-		</form> -->
 		</div>
+
+
 
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="/javascripts/cryptoApp.js"></script>
+		<script type="text/javascript" src="/javascripts/_drag.js"></script>
+		<!-- <script type="text/javascript" src="/javascripts/test.js"></script> -->
+		
+		<!-- //ondrop="drop_handler(event);" -->
+		<div id="drop_zone" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" ondragend="dragend_handler(event);">
+		  <strong>Drag one or more files to this Drop Zone ...</strong>
+		</div>
 	</main>
 
 </body>

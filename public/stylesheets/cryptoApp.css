@@ -191,7 +191,8 @@ input,
 .header,
 section,
 .key-info,
-.key-info input
+.key-info input,
+#drop_zone
 {
 	border: none;
 	border-radius: 3px;
@@ -238,4 +239,12 @@ input:hover{
 	font-weight: bold;
 	margin: 3px 0;
 	width: 90%;
+}
+
+#drop_zone{
+	display: block;
+	width: 100%;
+	padding: 30px;
+	margin-top: 20px;
+	background-color: lightblue;
 }

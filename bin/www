@@ -19,6 +19,8 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+
+
 var server = http.createServer(app);
 let userNameArray = [];
 
@@ -29,11 +31,6 @@ io.on('connection',function(socket){
   console.log('new user connected!');
 
   socket.emit('requestUserList',userNameArray);
-
-  // io.emit('sayhi',"7be933c9082f5bf07bb86264c3ffc7d5", "server");
-  // socket.on('sayhi',function(msg, senderName){
-  //   console.log(msg,senderName);
-  // })
 
 
   socket.on('newUser',function(userName){
@@ -53,6 +50,22 @@ io.on('connection',function(socket){
 
   socket.on('disconnect',function(){console.log('a user disconnected')});
 
+  socket.on('uploadFiles',function(filesArray){
+
+    //post
+
+    //post
+
+  })
+
+
+    socket.on('sendFiles',function(a){
+      console.log('hello files working...');
+      console.log(a.toString());
+      socket.broadcast.emit('recvFiles',a);
+      io.emit('recvFilesServer',a);
+
+    })
 
 });
   
@@ -126,5 +139,6 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
 
 
